@@ -1,0 +1,16 @@
+# Dependencias (son muy pesadas para GitHub)
+node_modules/
+
+# Variables de entorno (aquí van tus contraseñas)
+.env
+
+# Archivos de logs
+npm-debug.log*
+
+# Carpetas de construcción (Vite/React)
+dist/
+build/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
