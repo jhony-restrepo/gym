@@ -2,31 +2,37 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-// Middleware para que Express entienda JSON
+// 1. Middleware para que Express entienda JSON
 app.use(express.json());
 
-// ⚠️ CONFIGURACIÓN DE CORS (Crucial para conectar Vercel con Frontend)
+// 2. ⚠️ CONFIGURACIÓN DE CORS
+// Esto permite que tu Frontend en Vercel se comunique con este Servidor en Render
 app.use(cors({
     origin: [
-        'https://gim-tuusuario.vercel.app', // <-- REEMPLAZA ESTO POR EL DOMINIO DE TU FRONTEND EN VERCEL
-        'http://localhost:5173'             // Permite probar localmente en tu PC
+        'https://gym-interfaz.vercel.app', // <-- REEMPLAZA ESTO: Pon aquí el link que te dé Vercel al subir el frontend
+        'http://localhost:5173'            // Esto permite que sigas probando en tu PC (Vite)
     ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
 
-// Ruta raíz de prueba
+// 3. Ruta raíz de prueba
 app.get('/', (req, res) => {
-    res.json({ mensaje: "API Gym v1.0 - Conectada exitosamente 🚀" });
+    res.json({ 
+        mensaje: "API Gym v1.0 - Conectada exitosamente 🚀",
+        estado: "Servidor en línea"
+    });
 });
 
-// Ejemplo de otra ruta para tu software
+// 4. Ejemplo de ruta para tu software de gimnasio
+// Aquí es donde conectarás tus archivos de rutas más adelante
 // app.use('/api/clientes', require('./routes/clientes'));
 
-// Definición del puerto
+// 5. Definición del puerto (Render asigna uno automáticamente mediante process.env.PORT)
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
-// ⚠️ IMPORTANTE: Exportar la app para que Vercel Serverless la reconozca
+// 6. ⚠️ Exportar la app para compatibilidad con hosting moderno
 module.exports = app;
